@@ -5,26 +5,28 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
-import streamlit as st
 
 st.set_page_config(page_title="Heart Disease Prediction", page_icon="❤️", layout="centered")
 
-# Load dataset
-#heart_data = pd.read_csv(r'C:\Users\Harsh Giri\OneDrive\Documents\Programing Language\Python\Project\Disease prediction\Heart Disease\heart.csv')
-
-
 st.title("Heart Disease Prediction")
 
+# Initialize `heart`
+heart = None
+
+# File Upload
 uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 
 if uploaded_file is not None:
     heart = pd.read_csv(uploaded_file)
-    st.write(heart.head())  # Display the first few rows
+    st.write(heart.head())  # Display first few rows
 
-
-# Prepare data
-X = heart.drop(columns='target', axis=1)
-Y = heart['target']
+# Ensure dataset is loaded
+if heart is not None:
+    X = heart.drop(columns='target', axis=1)
+    Y = heart['target']
+else:
+    st.error("Please upload a CSV file to proceed.")
+    st.stop()
 
 # Standardize features
 scaler = StandardScaler()
@@ -37,6 +39,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(X_scaled, Y, test_size=0.2, 
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train, Y_train)
 
+# Prediction Logic (unchanged)
 # App Title
 st.title("Heart Disease Prediction AI 🏥")
 
