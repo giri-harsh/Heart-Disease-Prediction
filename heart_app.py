@@ -18,13 +18,13 @@ st.title("Heart Disease Prediction")
 uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
 
 if uploaded_file is not None:
-    heart_data = pd.read_csv(uploaded_file)
-    st.write(heart_data.head())  # Display the first few rows
+    heart = pd.read_csv(uploaded_file)
+    st.write(heart.head())  # Display the first few rows
 
 
 # Prepare data
-X = heart_data.drop(columns='target', axis=1)
-Y = heart_data['target']
+X = heart.drop(columns='target', axis=1)
+Y = heart['target']
 
 # Standardize features
 scaler = StandardScaler()
