@@ -14,7 +14,7 @@ heart = pd.read_csv("heart.csv")  # Make sure heart.csv is in the same directory
 st.title("Heart Disease Prediction")
 
 # Display dataset preview
-st.write("👉Try entering this data as input to explore the features of the website. Use **1** for "Yes" and **0** for "No."")
+st.write("👉Try entering this data as input to explore the features of the website. Use **1** for \"Yes\" and **0** for \"No.\"")
 st.write("📄 Loaded Dataset:")
 st.write(heart.head())  # Show first few rows
 
