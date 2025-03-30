@@ -8,25 +8,18 @@ from sklearn.preprocessing import StandardScaler
 
 st.set_page_config(page_title="Heart Disease Prediction", page_icon="❤️", layout="centered")
 
+# Load dataset from project folder
+heart = pd.read_csv("heart.csv")  # Make sure heart.csv is in the same directory as heart_app.py
+
 st.title("Heart Disease Prediction")
 
-# Initialize `heart`
-heart = None
+# Display dataset preview
+st.write("📄 Loaded Dataset:")
+st.write(heart.head())  # Show first few rows
 
-# File Upload
-uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
-
-if uploaded_file is not None:
-    heart = pd.read_csv(uploaded_file)
-    st.write(heart.head())  # Display first few rows
-
-# Ensure dataset is loaded
-if heart is not None:
-    X = heart.drop(columns='target', axis=1)
-    Y = heart['target']
-else:
-    st.error("Please upload a CSV file to proceed.")
-    st.stop()
+# Prepare data
+X = heart.drop(columns='target', axis=1)
+Y = heart['target']
 
 # Standardize features
 scaler = StandardScaler()
@@ -38,6 +31,7 @@ X_train, X_test, Y_train, Y_test = train_test_split(X_scaled, Y, test_size=0.2, 
 # Train model
 model = LogisticRegression(max_iter=1000)
 model.fit(X_train, Y_train)
+
 
 # Prediction Logic (unchanged)
 # App Title
