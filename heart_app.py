@@ -5,11 +5,22 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LogisticRegression
 from sklearn.metrics import accuracy_score
 from sklearn.preprocessing import StandardScaler
+import streamlit as st
 
 st.set_page_config(page_title="Heart Disease Prediction", page_icon="❤️", layout="centered")
 
 # Load dataset
-heart_data = pd.read_csv(r'C:\Users\Harsh Giri\OneDrive\Documents\Programing Language\Python\Project\Disease prediction\Heart Disease\heart.csv')
+#heart_data = pd.read_csv(r'C:\Users\Harsh Giri\OneDrive\Documents\Programing Language\Python\Project\Disease prediction\Heart Disease\heart.csv')
+
+
+st.title("Heart Disease Prediction")
+
+uploaded_file = st.file_uploader("Upload a CSV file", type=["csv"])
+
+if uploaded_file is not None:
+    heart_data = pd.read_csv(uploaded_file)
+    st.write(heart_data.head())  # Display the first few rows
+
 
 # Prepare data
 X = heart_data.drop(columns='target', axis=1)
